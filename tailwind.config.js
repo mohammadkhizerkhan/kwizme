@@ -4,7 +4,7 @@ module.exports = {
   ],
   theme: {
     screens:{
-      sm:"480px",
+      sm:"280px",
       md:"768px",
       lg:"976px",
       xl:"1440px"
@@ -12,7 +12,8 @@ module.exports = {
     extend: {
       colors:{
         primary:"#4ade80",
-        text__color:"#0E131F"
+        text_color:"#0E131F",
+        "grey":"#9ca3af"
         
       }
     },

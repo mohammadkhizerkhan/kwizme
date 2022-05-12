@@ -1,12 +1,12 @@
 import "./App.css";
 import Logo from "./assets/Logo";
+import QuizCard from "./components/QuizCard";
 
 function App() {
   return (
-    <div className="App">
-      <div className="container mx-auto bg-gray-200 rounded-xl shadow border p-8 m-10">
+    <div className="w-full mx-auto bg-gray-200 rounded-xl shadow border p-8 flex-col items-center">
         <Logo />
-      </div>
+        <QuizCard/>
     </div>
   );
 }
