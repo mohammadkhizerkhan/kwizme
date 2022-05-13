@@ -2,7 +2,7 @@ import React from "react";
 
 function Login() {
   return (
-    <div class="mt-50 h-screen overflow-hidden flex items-center justify-center">
+    <div class="h-144 overflow-hidden flex items-center justify-center">
       <div class="bg-white lg:w-5/12 md:6/12 w-10/12 shadow-3xl">
         <div class="bg-gray-800 absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-4 md:p-8">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="#FFF">

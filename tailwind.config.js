@@ -19,8 +19,12 @@ module.exports = {
         "grey":"rgb(115 115 115)",
         "selected":"rgb(212 212 212)"
 
+      },
+      spacing:{
+        "144":"37rem"
       }
     },
+
   },
   plugins: [],
 }
