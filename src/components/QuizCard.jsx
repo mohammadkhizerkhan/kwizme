@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useQuizs } from "../context/QuizContext";
+import { useQuizs } from "../context";
 
 function QuizCard() {
   const { quizs } = useQuizs();
