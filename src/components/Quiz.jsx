@@ -1,5 +1,5 @@
-import { React, useEffect,useState } from "react";
-import { useParams } from "react-router-dom";
+import { React, useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useQuestion, useQuizs } from "../context";
 import { db } from "../firebase/config";
 import {
@@ -14,56 +14,58 @@ import {
 
 function Quiz() {
   const { quizId } = useParams();
+  const navigate = useNavigate();
   const colName = sessionStorage.getItem("colName");
   const {
     state: { currentQue },
     dispatch,
   } = useQuestion();
   const [questions, setQuestions] = useState([]);
-  const [seconds,setSeconds]=useState(30)
-  const [answer,setAnswer]=useState("")
+  const [seconds, setSeconds] = useState(5);
+  const [answer, setAnswer] = useState("");
 
   const nextQuestionHandler = () => {
-    setSeconds(30)
-    dispatch({ type: "NEXT",payload:{question:questions[currentQue].question,answer}});
+    setSeconds(5);
+    dispatch({
+      type: "NEXT",
+      payload: { question: questions[currentQue].question, answer },
+    });
+    setAnswer("");
   };
 
-  
-
   useEffect(() => {
-    (
-      async ()=>{
-        try {
-          const docs = await getDocs(collection(db,colName,quizId,"questions"))
-          const tempArr=[]
-          docs.forEach(doc=>{
-            tempArr.push({...doc.data(),id:doc.id})
-          })
-          setQuestions(tempArr)
-        } catch (error) {
-          console.error("error in getting docs",error)
-        }
+    (async () => {
+      try {
+        const docs = await getDocs(
+          collection(db, colName, quizId, "questions")
+        );
+        const tempArr = [];
+        docs.forEach((doc) => {
+          tempArr.push({ ...doc.data(), id: doc.id });
+        });
+        setQuestions(tempArr);
+      } catch (error) {
+        console.error("error in getting docs", error);
       }
-    )();
-  }, [])
+    })();
+  }, []);
 
   useEffect(() => {
     let intervalId = setInterval(() => {
       if (seconds > 0) {
-        setSeconds(prev=>prev - 1);
+        setSeconds((prev) => prev - 1);
       }
       if (seconds === 1) {
         nextQuestionHandler();
-        // if (currentQue === questions.length) {
-        //   navigate("/result");
-        // }
+        if (currentQue + 1 === questions.length) {
+          navigate("/result");
+        }
       }
     }, 1000);
     return () => {
       clearInterval(intervalId);
     };
   }, [seconds]);
-
 
   return (
     <>
@@ -77,9 +79,13 @@ function Quiz() {
       <div className="flex flex-col w-full max-w-xl mx-auto">
         <h3 className="text-3xl">{questions[currentQue]?.question}</h3>
         <div className="mt-4 flex-col text-center">
-          {questions[currentQue]?.answers.map((item,i) => {
+          {questions[currentQue]?.answers.map((item, i) => {
             return (
-              <li htmlFor={i} onClick={()=>setAnswer(item.answer)} className="block cursor-pointer list-none bg-selected p-2 rounded mt-2 text-2xl">
+              <li
+                htmlFor={i}
+                onClick={() => setAnswer(item.answer)}
+                className="block cursor-pointer list-none bg-selected p-2 rounded mt-2 text-2xl"
+              >
                 {item.answer}
               </li>
             );
@@ -92,7 +98,10 @@ function Quiz() {
           {questions?.length === currentQue + 1 ? (
             <button
               className="py-2 px-4 mt-4 bg-primary text-1xl text_color rounded-lg self-start"
-              onClick={() => nextQuestionHandler()}
+              onClick={() => {
+                nextQuestionHandler();
+                navigate("/result");
+              }}
             >
               Result
             </button>
