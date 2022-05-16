@@ -23,8 +23,8 @@ const QuizContext = createContext(defaultValue);
 
 const QuizProvider = ({ children }) => {
   const [quizs, setQuizs] = useState([]);
-  const [quizMetaData,setQuizMetaData]=useState({})
-  const [questions, setQuestions] = useState([]);
+
+  
 
 
 
@@ -59,32 +59,13 @@ const QuizProvider = ({ children }) => {
     return () => unsub();
   }, []);
 
-  useEffect(() => {
-    (
-        ()=>{
-          try {
-              onSnapshot(
-                query(collection(db, quizMetaData.colName, quizMetaData.quizId, "questions")),
-                (querySnapshot) => {
-                  let tempArr = [];
-                  querySnapshot.docs.map((doc) => {
-                    tempArr.push({ ...doc.data(), id: doc.id });
-                  });
-                  setQuestions(tempArr);
-                }
-              );
-            } catch (error) {
-                console.error("error in gettin demon",error)
-            }
-        }
-    )();
-}, [quizMetaData]);
+ 
 
 
 
   return (
     <>
-      <QuizContext.Provider value={{quizs,quizMetaData,setQuizMetaData,questions}}>{children}</QuizContext.Provider>
+      <QuizContext.Provider value={{quizs}}>{children}</QuizContext.Provider>
     </>
   );
 };
