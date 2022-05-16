@@ -37,4 +37,4 @@ function Quiz() {
   );
 }
 
-export default Quiz;
+export {Quiz};

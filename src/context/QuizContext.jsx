@@ -74,7 +74,7 @@ const QuizProvider = ({ children }) => {
                 }
               );
             } catch (error) {
-                console.log("error in gettin demon",error)
+                console.error("error in gettin demon",error)
             }
         }
     )();

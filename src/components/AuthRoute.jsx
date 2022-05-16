@@ -9,4 +9,4 @@ const AuthRoute = () => {
   )
 }
 
-export default AuthRoute
+export {AuthRoute}

@@ -14,7 +14,7 @@ function QuizCard() {
               <Link state={{colName:quiz.colName}} to={`quiz/${quiz.id}`}>
                 <img
                   src={quiz.image}
-                  alt="quiz image"
+                  alt="quiz"
                   class="rounded-t-lg w-full h-full"
                 />
               </Link>
@@ -38,4 +38,4 @@ function QuizCard() {
   );
 }
 
-export default QuizCard;
+export {QuizCard};

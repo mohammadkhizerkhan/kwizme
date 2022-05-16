@@ -42,7 +42,7 @@ const AuthProvider = ({ children }) => {
           navigate(from, { replace: true });
         })
         .catch((err) => {
-          console.log("error in signUp handler", err);
+          console.error("error in signUp handler", err);
         });
     }
     setUserDetails({
@@ -60,7 +60,7 @@ const AuthProvider = ({ children }) => {
         navigate(from, { replace: true });
       })
       .catch((err) => {
-        console.log("errro in login Handler", err);
+        console.error("errro in login Handler", err);
       });
     setUserDetails({
       email: "",
@@ -75,13 +75,12 @@ const AuthProvider = ({ children }) => {
         let from = location.state?.from?.pathname || "/";
         navigate(from, { replace: true });
       })
-      .catch((err) => console.log("error in signout", err));
+      .catch((err) => console.error("error in signout", err));
   };
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user);
         setUser(user);
         setToken(user.accessToken);
       } else {

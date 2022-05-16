@@ -64,4 +64,4 @@ function Result() {
     )
 }
 
-export default Result
+export {Result}

@@ -1,14 +1,10 @@
 import "./App.css";
 import Logo from "./assets/Logo";
-import Quiz from "./components/Quiz";
-import QuizCard from "./components/QuizCard";
-import Login from "./Pages/Login";
 import { Routes, Route, Link } from "react-router-dom";
-import Result from "./Pages/Result";
-import SignUp from "./Pages/SignUp";
-import SignOut from "./Pages/SignOut";
+import {Login,Result,SignUp,SignOut} from "./Pages"
 import { PrivateRoute } from "./PrivateRoute";
-import AuthRoute from "./components/AuthRoute";
+import { QuizCard,Quiz,AuthRoute } from "./components";
+
 
 function App() {
   return (
@@ -18,10 +14,10 @@ function App() {
         <button>Login</button>
       </Link>
       <Link to="/signup" className="ml-6">
-        <button>Singup</button>
+        <button>SignUp</button>
       </Link>
       <Link to="/signout" className="ml-6">
-        <button>signout</button>
+        <button>SignOut</button>
       </Link>
       <Routes>
         <Route path="/" element={<QuizCard />} />
