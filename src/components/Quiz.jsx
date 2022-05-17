@@ -26,10 +26,17 @@ function Quiz() {
 
   const nextQuestionHandler = () => {
     setSeconds(5);
-    dispatch({
-      type: "NEXT",
-      payload: { question: questions[currentQue].question, answer },
-    });
+    if(currentQue<5){
+      dispatch({
+        type: "NEXT",
+        payload: { question: questions[currentQue].question, answer },
+      });
+    }
+    if(currentQue==4){
+      dispatch({
+        type:"RESET",
+      })
+    }
     setAnswer("");
   };
 

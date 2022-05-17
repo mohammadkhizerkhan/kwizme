@@ -1,15 +1,22 @@
-import React from "react";
+import {useEffect} from "react";
 import { Link,useNavigate } from "react-router-dom";
-import { useQuizs } from "../context";
+import { useQuestion, useQuizs } from "../context";
 
 function QuizCard() {
   const { quizs } = useQuizs();
   const navigate = useNavigate();
+  const {dispatch}=useQuestion();
 
   const playHandler=(quizId,colName)=>{
     sessionStorage.setItem("quizId",quizId)
     sessionStorage.setItem("colName",colName)
   }
+  useEffect(() => {
+    dispatch({
+      type:"RESET",
+    })
+  }, [])
+  
 
   return (
     <div className="flex flex-row flex-wrap justify-around gap-4 my-16 mx-24 sm:mx-5 md:mx-14">
