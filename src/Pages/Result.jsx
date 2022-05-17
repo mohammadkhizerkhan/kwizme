@@ -1,67 +1,60 @@
-import React from 'react'
+import { React, useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase/config";
+import { useQuestion, useQuizs } from "../context";
 
 function Result() {
-    return (
-        <>
-        <div className='flex flex-col w-full max-w-xl mx-auto'>
-            <h1 className='text-center text-6xl'>RESULTS</h1>
-            <h1 className='text-center text-5xl'>wanna become hogkage</h1>
-            <div className="flex justify-between mt-6 mb-6">
-                <span>Question:1/10</span>
-                <span>Score:0</span>
-            </div>
-            <h3 className='text-3xl'>How many hokage's are in naruto anime?</h3>
-            <div className="mt-4 text-center">
-                <li className="list-none bg-selected p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-grey p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-red p-2 rounded mt-2 text-2xl">4</li>
-                <li className="list-none bg-green p-2 rounded mt-2 text-2xl">7</li>
-            </div>
+  const colName = sessionStorage.getItem("colName");
+  const quizId = sessionStorage.getItem("quizId");
+  const { state, dispatch } = useQuestion();
+
+  const [questions, setQuestions] = useState([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const docs = await getDocs(
+          collection(db, colName, quizId, "questions")
+        );
+        const tempArr = [];
+        docs.forEach((doc) => {
+          tempArr.push({ ...doc.data(), id: doc.id });
+        });
+        setQuestions(tempArr);
+      } catch (error) {
+        console.error("error in getting docs", error);
+      }
+    })();
+  }, []);
+  console.log("selected", state.selectedQuestions);
+  console.log("quiz que", questions);
+
+  return (
+    <>
+      <div className="flex flex-col w-full max-w-xl mx-auto">
+        <h2 className="text-center text-5xl">RESULTS</h2>
+        <div className="text-4xl flex mt-6 mb-6 justify-between">
+          <span>Score:0</span>
         </div>
-        <div className='flex flex-col w-full max-w-xl mx-auto'>
-            <h1 className='text-center text-5xl'>wanna become hogkage</h1>
-            <div className="flex justify-between mt-6 mb-6">
-                <span>Question:1/10</span>
-                <span>Score:0</span>
-            </div>
-            <h3 className='text-3xl'>How many hokage's are in naruto anime?</h3>
-            <div className="mt-4 text-center">
-                <li className="list-none bg-selected p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-grey p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-red p-2 rounded mt-2 text-2xl">4</li>
-                <li className="list-none bg-green p-2 rounded mt-2 text-2xl">7</li>
-            </div>
-        </div>
-        <div className='flex flex-col w-full max-w-xl mx-auto'>
-            <h1 className='text-center text-5xl'>wanna become hogkage</h1>
-            <div className="flex justify-between mt-6 mb-6">
-                <span>Question:1/10</span>
-                <span>Score:0</span>
-            </div>
-            <h3 className='text-3xl'>How many hokage's are in naruto anime?</h3>
-            <div className="mt-4 text-center">
-                <li className="list-none bg-selected p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-grey p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-red p-2 rounded mt-2 text-2xl">4</li>
-                <li className="list-none bg-green p-2 rounded mt-2 text-2xl">7</li>
-            </div>
-        </div>
-        <div className='flex flex-col w-full max-w-xl mx-auto'>
-            <h1 className='text-center text-5xl'>wanna become hogkage</h1>
-            <div className="flex justify-between mt-6 mb-6">
-                <span>Question:1/10</span>
-                <span>Score:0</span>
-            </div>
-            <h3 className='text-3xl'>How many hokage's are in naruto anime?</h3>
-            <div className="mt-4 text-center">
-                <li className="list-none bg-selected p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-grey p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-red p-2 rounded mt-2 text-2xl">4</li>
-                <li className="list-none bg-green p-2 rounded mt-2 text-2xl">7</li>
-            </div>
-        </div>
-        </>
-    )
+        {questions?.map((item) => {
+          return (
+            <>
+              <h3 className="text-3xl">{item.question}</h3>
+              <div className="mt-4 text-center">
+                {item.answers.map((ele,i) => (
+                  <li
+                    htmlFor={i}
+                    className={`block cursor-pointer list-none bg-selected p-2 rounded mt-2 text-2xl hover:bg-grey`}
+                  >
+                    {ele.answer}
+                  </li>
+                ))}
+              </div>
+            </>
+          );
+        })}
+      </div>
+    </>
+  );
 }
 
-export {Result}
+export { Result };
