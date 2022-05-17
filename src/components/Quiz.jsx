@@ -26,16 +26,16 @@ function Quiz() {
 
   const nextQuestionHandler = () => {
     setSeconds(5);
-    if(currentQue<5){
+    if (currentQue < 5) {
       dispatch({
         type: "NEXT",
         payload: { question: questions[currentQue].question, answer },
       });
     }
-    if(currentQue==4){
+    if (currentQue == 4) {
       dispatch({
-        type:"RESET",
-      })
+        type: "RESET",
+      });
     }
     setAnswer("");
   };
@@ -91,7 +91,9 @@ function Quiz() {
               <li
                 htmlFor={i}
                 onClick={() => setAnswer(item.answer)}
-                className="block cursor-pointer list-none bg-selected p-2 rounded mt-2 text-2xl"
+                className={`block cursor-pointer list-none bg-selected p-2 rounded mt-2 text-2xl ${
+                  answer === item.answer && "bg-grey"
+                } hover:bg-grey`}
               >
                 {item.answer}
               </li>
