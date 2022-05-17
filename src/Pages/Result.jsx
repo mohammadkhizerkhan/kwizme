@@ -7,6 +7,7 @@ function Result() {
   const colName = sessionStorage.getItem("colName");
   const quizId = sessionStorage.getItem("quizId");
   const { state, dispatch } = useQuestion();
+  const { selectedQuestions } = state;
 
   const [questions, setQuestions] = useState([]);
   useEffect(() => {
@@ -35,15 +36,20 @@ function Result() {
         <div className="text-4xl flex mt-6 mb-6 justify-between">
           <span>Score:0</span>
         </div>
-        {questions?.map((item) => {
+        {questions?.map((item, i) => {
           return (
             <>
               <h3 className="text-3xl">{item.question}</h3>
               <div className="mt-4 text-center">
-                {item.answers.map((ele,i) => (
+                {item.answers.map((ele) => (
                   <li
-                    htmlFor={i}
-                    className={`block cursor-pointer list-none bg-selected p-2 rounded mt-2 text-2xl hover:bg-grey`}
+                    className={`block cursor-pointer list-none bg-selected p-2 rounded mt-2 text-2xl ${
+                      ele.isCorrect && "bg-green"
+                    } ${
+                      selectedQuestions[i].answer === ele.answer &&
+                      !ele.isCorrect &&
+                      "bg-red"
+                    }`}
                   >
                     {ele.answer}
                   </li>
