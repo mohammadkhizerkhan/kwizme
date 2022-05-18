@@ -19,9 +19,10 @@ const db=getFirestore(app);
 const demonSlayerDb=collection(db,"demonSlayer")
 const hunterDb=collection(db,"hunter")
 const narutoDb=collection(db,"naruto")
+const userDb=collection(db,"users")
 
 
 //auth
 const auth=getAuth(app);
 
-export {db,demonSlayerDb,hunterDb,narutoDb,auth}
+export {db,demonSlayerDb,hunterDb,narutoDb,userDb,auth}

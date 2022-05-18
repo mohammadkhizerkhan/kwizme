@@ -1,7 +1,8 @@
 import { React, useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/config";
-import { useQuestion, useQuizs } from "../context";
+import { useAuth, useQuestion, useQuizs } from "../context";
+import { AddUserScore } from "../services/AddUserScore";
 
 function Result() {
   const colName = sessionStorage.getItem("colName");
@@ -9,7 +10,7 @@ function Result() {
   const { state, dispatch } = useQuestion();
   const { selectedQuestions } = state;
   const [totalScore, setTotalScore] = useState(0);
-
+  const {user}=useAuth();
   const [questions, setQuestions] = useState([]);
 
   const calculatePoints = () => {
@@ -21,8 +22,11 @@ function Result() {
         }
       }
     });
+    AddUserScore(total,user)
     setTotalScore(total);
   };
+
+  
   useEffect(() => {
     calculatePoints();
   }, [questions]);
@@ -56,6 +60,7 @@ function Result() {
           ) : (
             <span className="text-green">Score:{totalScore}</span>
           )}
+          {/* <button onClick={()=>AddUserScore(totalScore,user)}>leaderboard</button> */}
         </div>
         {questions?.map((item, i) => {
           return (
