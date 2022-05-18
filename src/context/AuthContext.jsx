@@ -7,6 +7,7 @@ import {
 import { createContext, useContext, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { auth } from "../firebase/config";
+import { CallToast } from "../services/CallToast";
 
 const defaultValue = [];
 
@@ -38,6 +39,7 @@ const AuthProvider = ({ children }) => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
+          CallToast("success","Signed Up succesfully")
           let from = location.state?.from?.pathname || "/";
           navigate(from, { replace: true });
         })
@@ -56,6 +58,7 @@ const AuthProvider = ({ children }) => {
     signInWithEmailAndPassword(auth, userDetails.email, userDetails.password)
       .then((userCredential) => {
         const user = userCredential.user;
+        CallToast("success","Logged in succesfully")
         let from = location.state?.from?.pathname || "/";
         navigate(from, { replace: true });
       })
@@ -72,6 +75,8 @@ const AuthProvider = ({ children }) => {
     signOut(auth)
       .then(() => {
         console.log("logged out succesfully");
+        CallToast("success","Logged Out succesfully")
+        setUser(null)
         let from = location.state?.from?.pathname || "/";
         navigate(from, { replace: true });
       })
@@ -88,6 +93,7 @@ const AuthProvider = ({ children }) => {
       }
     });
   }, []);
+  console.log(user)
 
   return (
     <>
