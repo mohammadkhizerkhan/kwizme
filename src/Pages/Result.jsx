@@ -22,7 +22,7 @@ function Result() {
         }
       }
     });
-    AddUserScore(total,user)
+    AddUserScore(colName,total,user)
     setTotalScore(total);
   };
 
@@ -30,6 +30,8 @@ function Result() {
   useEffect(() => {
     calculatePoints();
   }, [questions]);
+
+  
 
   useEffect(() => {
     (async () => {
