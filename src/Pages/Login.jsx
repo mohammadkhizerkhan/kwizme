@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const {loginHandler,userDetails,changeHandler}=useAuth();
+  const navigate=useNavigate();
   return (
     <div class="h-144 overflow-hidden flex items-center justify-center">
       <div class="bg-white lg:w-5/12 md:6/12 w-10/12 shadow-3xl">
@@ -38,6 +40,9 @@ function Login() {
           </div>
           <button type="submit" onClick={(e)=>loginHandler(e)} class="bg-gradient-to-b from-gray-700 to-gray-900 font-medium p-2 md:p-4 text-white uppercase w-full">
             Login
+          </button>
+          <button type="button" onClick={()=>navigate("/signup")} class="bg-gradient-to-b mt-3 from-gray-700 to-gray-900 font-medium p-2 md:p-4 text-white uppercase w-full">
+            Create a new account
           </button>
         </form>
       </div>

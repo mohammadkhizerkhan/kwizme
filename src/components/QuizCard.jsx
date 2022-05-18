@@ -1,6 +1,7 @@
 import {useEffect} from "react";
 import { Link,useNavigate } from "react-router-dom";
 import { useQuestion, useQuizs } from "../context";
+import {CallToast} from "../services/CallToast.js"
 
 function QuizCard() {
   const { quizs } = useQuizs();
@@ -19,7 +20,7 @@ function QuizCard() {
   
 
   return (
-    <div className="flex flex-row flex-wrap justify-around gap-4 my-16 mx-24 sm:mx-5 md:mx-14">
+    <div className="flex flex-row flex-wrap justify-around gap-4 mt-6 mx-24 sm:mx-5 md:mx-14">
       {quizs.map((quiz) => {
         return (
           <div class="bg-white rounded-lg shadow-lg w-96">
