@@ -1,67 +1,95 @@
-import React from 'react'
+import { React, useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase/config";
+import { useQuestion, useQuizs } from "../context";
 
 function Result() {
-    return (
-        <>
-        <div className='flex flex-col w-full max-w-xl mx-auto'>
-            <h1 className='text-center text-6xl'>RESULTS</h1>
-            <h1 className='text-center text-5xl'>wanna become hogkage</h1>
-            <div className="flex justify-between mt-6 mb-6">
-                <span>Question:1/10</span>
-                <span>Score:0</span>
-            </div>
-            <h3 className='text-3xl'>How many hokage's are in naruto anime?</h3>
-            <div className="mt-4 text-center">
-                <li className="list-none bg-selected p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-grey p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-red p-2 rounded mt-2 text-2xl">4</li>
-                <li className="list-none bg-green p-2 rounded mt-2 text-2xl">7</li>
-            </div>
+  const colName = sessionStorage.getItem("colName");
+  const quizId = sessionStorage.getItem("quizId");
+  const { state, dispatch } = useQuestion();
+  const { selectedQuestions } = state;
+  const [totalScore, setTotalScore] = useState(0);
+
+  const [questions, setQuestions] = useState([]);
+
+  const calculatePoints = () => {
+    let total = 0;
+    questions?.forEach((question, i) => {
+      for (const item of question.answers) {
+        if (selectedQuestions[i]?.answer === item.answer && item.isCorrect) {
+          total = total + 20;
+        }
+      }
+    });
+    setTotalScore(total);
+  };
+  useEffect(() => {
+    calculatePoints();
+  }, [questions]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const docs = await getDocs(
+          collection(db, colName, quizId, "questions")
+        );
+        const tempArr = [];
+        docs.forEach((doc) => {
+          tempArr.push({ ...doc.data(), id: doc.id });
+        });
+        setQuestions(tempArr);
+      } catch (error) {
+        console.error("error in getting docs", error);
+      }
+    })();
+  }, []);
+
+  return (
+    <>
+      <div className="flex flex-col w-full max-w-xl mx-auto">
+        <h2 className="text-center text-5xl">RESULTS</h2>
+        <div className="text-4xl flex mt-6 mb-6 justify-between">
+          {totalScore < 60 ? (
+            <span className="text-red">
+              Sorry your score is low:{totalScore}
+            </span>
+          ) : (
+            <span className="text-green">Score:{totalScore}</span>
+          )}
         </div>
-        <div className='flex flex-col w-full max-w-xl mx-auto'>
-            <h1 className='text-center text-5xl'>wanna become hogkage</h1>
-            <div className="flex justify-between mt-6 mb-6">
-                <span>Question:1/10</span>
-                <span>Score:0</span>
+        {questions?.map((item, i) => {
+          return (
+            <div className="m-3">
+              {selectedQuestions[i].answer === "" ? (
+                <h3 className="mb-2 text-2xl">
+                  sorry you have not selected any options for <span className="text-red">{item.question}</span>
+                </h3>
+              ) : (
+                <>
+                  <h3 className="mb-2 text-2xl">{item.question}</h3>
+                  <div className="text-center">
+                    {item.answers.map((ele) => (
+                      <li
+                        className={`block cursor-pointer list-none bg-selected p-2 rounded mt-1 text-2xl ${
+                          ele.isCorrect && "bg-green"
+                        } ${
+                          selectedQuestions[i].answer === ele.answer &&
+                          !ele.isCorrect &&
+                          "bg-red"
+                        }`}
+                      >
+                        {ele.answer}
+                      </li>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
-            <h3 className='text-3xl'>How many hokage's are in naruto anime?</h3>
-            <div className="mt-4 text-center">
-                <li className="list-none bg-selected p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-grey p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-red p-2 rounded mt-2 text-2xl">4</li>
-                <li className="list-none bg-green p-2 rounded mt-2 text-2xl">7</li>
-            </div>
-        </div>
-        <div className='flex flex-col w-full max-w-xl mx-auto'>
-            <h1 className='text-center text-5xl'>wanna become hogkage</h1>
-            <div className="flex justify-between mt-6 mb-6">
-                <span>Question:1/10</span>
-                <span>Score:0</span>
-            </div>
-            <h3 className='text-3xl'>How many hokage's are in naruto anime?</h3>
-            <div className="mt-4 text-center">
-                <li className="list-none bg-selected p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-grey p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-red p-2 rounded mt-2 text-2xl">4</li>
-                <li className="list-none bg-green p-2 rounded mt-2 text-2xl">7</li>
-            </div>
-        </div>
-        <div className='flex flex-col w-full max-w-xl mx-auto'>
-            <h1 className='text-center text-5xl'>wanna become hogkage</h1>
-            <div className="flex justify-between mt-6 mb-6">
-                <span>Question:1/10</span>
-                <span>Score:0</span>
-            </div>
-            <h3 className='text-3xl'>How many hokage's are in naruto anime?</h3>
-            <div className="mt-4 text-center">
-                <li className="list-none bg-selected p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-grey p-2 rounded mt-2 text-2xl">5</li>
-                <li className="list-none bg-red p-2 rounded mt-2 text-2xl">4</li>
-                <li className="list-none bg-green p-2 rounded mt-2 text-2xl">7</li>
-            </div>
-        </div>
-        </>
-    )
+          );
+        })}
+      </div>
+    </>
+  );
 }
 
-export {Result}
+export { Result };

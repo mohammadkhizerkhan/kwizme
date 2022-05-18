@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useQuestion, useQuizs } from "../context";
+import { useQuestion } from "../context";
 import { db } from "../firebase/config";
 import {
   addDoc,
@@ -32,7 +32,7 @@ function Quiz() {
         payload: { question: questions[currentQue].question, answer },
       });
     }
-    if (currentQue == 4) {
+    if (currentQue == 5) {
       dispatch({
         type: "RESET",
       });
@@ -80,7 +80,6 @@ function Quiz() {
         <span>
           Question:{currentQue + 1}/{questions?.length}
         </span>
-        <span>Score:0</span>
         <span>{seconds} sec</span>
       </div>
       <div className="flex flex-col w-full max-w-xl mx-auto">
