@@ -10,17 +10,15 @@ import {
   getDoc,
 } from "firebase/firestore";
 
-const getUserScore=(user)=>{
-  return getDoc(doc(userDb, user.uid)).data();
-}
-
-const AddUserScore = (colName, score, user) => {
-  // console.log(getUserScore(user))
+const getUserScore = (user) => {
+  const docRef = doc(userDb,user.uid);
+  const docSnap = getDoc(docRef);
+  return docSnap;
 };
 
-export { AddUserScore };
-
-// setDoc(
+const AddUserScore = (colName, score, user) => {
+  console.log(getUserScore(user));
+  // setDoc(
   //   doc(userDb, user.uid),
   //   {
   //     uid: user.uid,
@@ -29,3 +27,6 @@ export { AddUserScore };
   //   },
   //   { merge: true }
   // );
+};
+
+export { AddUserScore };

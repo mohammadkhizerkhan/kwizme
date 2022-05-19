@@ -22,7 +22,9 @@ function Result() {
         }
       }
     });
-    AddUserScore(colName,total,user)
+    if(total.toString()){
+      AddUserScore(colName,total,user)
+    }
     setTotalScore(total);
   };
 

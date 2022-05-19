@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 const CallToast = (type, message) => {
   switch (type) {
     case "success":
-        console.log("hi")
       toast.success(message, {
         position: "top-right",
         autoClose: 1500,
