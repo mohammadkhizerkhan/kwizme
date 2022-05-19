@@ -8,6 +8,7 @@ function Navbar() {
   return (
     <div className="flex justify-between">
       <Logo />
+      <Link to={"/leaderboard"} className="self-center p-3 bg-green text-grey rounded">LeaderBoard</Link>
       <Link to={token ? "/signout" : "/signup"} className="self-center">
         <div class="flex-row-center profile-logo-div">
           <svg width="3rem" height="3rem" viewBox="0 0 48 48">

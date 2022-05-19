@@ -1,7 +1,7 @@
 import "./App.css";
 import Logo from "./assets/Logo";
 import { Routes, Route, Link } from "react-router-dom";
-import { Login, Result, SignUp, SignOut } from "./Pages";
+import { Login, Result, SignUp, SignOut, LeaderBoard } from "./Pages";
 import { PrivateRoute } from "./PrivateRoute";
 import { QuizCard, Quiz, AuthRoute,Navbar } from "./components";
 import { ToastContainer } from "react-toastify";
@@ -27,6 +27,7 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path="/" element={<QuizCard />} />
+          <Route path="/leaderboard" element={<LeaderBoard />} />
           <Route element={<AuthRoute />}>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
