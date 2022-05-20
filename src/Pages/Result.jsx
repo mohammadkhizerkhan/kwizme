@@ -10,7 +10,7 @@ function Result() {
   const { state, dispatch } = useQuestion();
   const { selectedQuestions } = state;
   const [totalScore, setTotalScore] = useState(0);
-  const {user}=useAuth();
+  const { user } = useAuth();
   const [questions, setQuestions] = useState([]);
 
   const calculatePoints = () => {
@@ -22,18 +22,15 @@ function Result() {
         }
       }
     });
-    if(total.toString()){
-      AddUserScore(colName,total,user)
-    }
+    // if(total.toString()){
+    //   AddUserScore(colName,total,user)
+    // }
     setTotalScore(total);
   };
 
-  
   useEffect(() => {
     calculatePoints();
   }, [questions]);
-
-  
 
   useEffect(() => {
     (async () => {
@@ -70,7 +67,8 @@ function Result() {
             <div className="m-3">
               {selectedQuestions[i].answer === "" ? (
                 <h3 className="mb-2 text-2xl">
-                  sorry you have not selected any options for <span className="text-red">{item.question}</span>
+                  sorry you have not selected any options for{" "}
+                  <span className="text-red">{item.question}</span>
                 </h3>
               ) : (
                 <>
@@ -78,13 +76,11 @@ function Result() {
                   <div className="text-center">
                     {item.answers.map((ele) => (
                       <li
-                        className={`block cursor-pointer list-none bg-selected p-2 rounded mt-1 text-2xl ${
-                          ele.isCorrect && "bg-green"
-                        } ${
+                        className={`block cursor-pointer list-none  p-2 rounded mt-1 text-2xl ${
                           selectedQuestions[i].answer === ele.answer &&
                           !ele.isCorrect &&
                           "bg-red"
-                        }`}
+                        } ${(selectedQuestions[i].answer === ele.answer && ele.isCorrect) ? "bg-green":"bg-selected"}`}
                       >
                         {ele.answer}
                       </li>
