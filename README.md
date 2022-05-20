@@ -1,4 +1,4 @@
-# [NoteUp](https://kwiz-me.netlify.app)
+# [Kwiz-me](https://kwiz-me.netlify.app)
 
 Kwiz me is An quiz app where you can play quiz.
 <hr/>
