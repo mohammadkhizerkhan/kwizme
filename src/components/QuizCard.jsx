@@ -24,7 +24,7 @@ function QuizCard() {
         return (
           <div class="bg-white rounded-lg shadow-lg w-96">
             <div className="h-64">
-              <Link to={`quiz/${quiz.id}`} onClick={()=>playHandler(quiz.id,quiz.colName)}>
+              <Link to="/rules" onClick={()=>playHandler(quiz.id,quiz.colName)}>
                 <img
                   src={quiz.image}
                   alt="quiz"
@@ -40,7 +40,7 @@ function QuizCard() {
                 Take this quizz to test yourself{" "}
                 <span className="text-xs grey">(5 question)</span>
               </p>
-              <Link to={`quiz/${quiz.id}`} onClick={()=>playHandler(quiz.id,quiz.colName)}>
+              <Link to="/rules" onClick={()=>playHandler(quiz.id,quiz.colName)}>
               <button class="animate-bounce inline-block py-2 px-4 bg-primary text-2xl text_color rounded-lg">
                 Play
               </button>

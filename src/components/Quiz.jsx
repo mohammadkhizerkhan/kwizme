@@ -19,9 +19,10 @@ function Quiz() {
   const {
     state: { currentQue },
     dispatch,
+    setModal,
   } = useQuestion();
   const [questions, setQuestions] = useState([]);
-  const [seconds, setSeconds] = useState(5);
+  const [seconds, setSeconds] = useState(30);
   const [answer, setAnswer] = useState("");
 
   const nextQuestionHandler = () => {
@@ -77,10 +78,10 @@ function Quiz() {
   return (
     <>
       <div className="flex justify-between mt-6 mb-6">
-        <span>
+        <span className="text-2xl">
           Question:{currentQue + 1}/{questions?.length}
         </span>
-        <span>{seconds} sec</span>
+        <span className="text-2xl">{seconds} sec</span>
       </div>
       <div className="flex flex-col w-full max-w-xl mx-auto">
         <h3 className="text-3xl">{questions[currentQue]?.question}</h3>
@@ -100,7 +101,10 @@ function Quiz() {
           })}
         </div>
         <div className="flex">
-          <button className="py-2 px-4 mt-4 mr-3 bg-red text-1xl text_color rounded-lg self-start">
+          <button
+            className="py-2 px-4 mt-4 mr-3 bg-red text-1xl text_color rounded-lg self-start"
+            onClick={() => setModal(true)}
+          >
             Quit
           </button>
           {questions?.length === currentQue + 1 ? (

@@ -1,9 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function SignUp() {
     const {userDetails,changeHandler,signUpHandler}=useAuth();
-
+   const navigate= useNavigate();
   return (
     <div class="h-144 overflow-hidden flex items-center justify-center">
       <div class="bg-white lg:w-5/12 md:6/12 w-10/12 shadow-3xl">
@@ -39,6 +40,9 @@ function SignUp() {
           </div>
           <button type="submit" class="bg-gradient-to-b from-gray-700 to-gray-900 font-medium p-2 md:p-4 text-white uppercase w-full" onClick={(e)=>signUpHandler(e)}>
             SignUp
+          </button>
+          <button type="button" class="bg-gradient-to-b mt-4 from-gray-700 to-gray-900 font-medium p-2 md:p-4 text-white uppercase w-full" onClick={()=>navigate("/login")}>
+            Already have an account
           </button>
         </form>
       </div>

@@ -17,8 +17,8 @@ module.exports = {
         "red":"rgb(239 68 68)",
         "green":"rgb(34 197 94)",
         "grey":"rgb(115 115 115)",
-        "selected":"rgb(212 212 212)"
-
+        "selected":"rgb(212 212 212)",
+        "overlay":"rgba(12, 13, 13, 0.6)"
       },
       spacing:{
         "144":"37rem"
