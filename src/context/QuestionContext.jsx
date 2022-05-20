@@ -5,11 +5,11 @@ const QuestionContext = createContext([]);
 
 const QuestionProvider = ({ children }) => {
   const [state, dispatch] = useReducer(QuestionReducer, initialState);
-  const [loader, setLoader] = useState(false);
+  // const [loader, setLoader] = useState(false);
   const [modal, setModal] = useState(false);
 
   return (
-    <QuestionContext.Provider value={{ state, dispatch, loader, setLoader, modal, setModal }}>
+    <QuestionContext.Provider value={{ state, dispatch, modal, setModal }}>
       {children}
     </QuestionContext.Provider>
   );
