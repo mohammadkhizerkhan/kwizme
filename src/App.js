@@ -23,9 +23,10 @@ function App() {
         pauseOnHover
       />
       <ToastContainer />
+      {modal && <Modal />}
       <div className="w-full mx-auto bg-gray-200 rounded-xl shadow border p-8 flex-col items-center">
-        <div className="flex flex-col fixed inset-0">{modal && <Modal />}</div>
         <Navbar />
+        <button onClick={()=>setModal(true)}>open</button>
         <Routes>
           <Route path="/" element={<QuizCard />} />
           <Route element={<AuthRoute />}>

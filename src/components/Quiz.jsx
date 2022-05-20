@@ -19,7 +19,7 @@ function Quiz() {
   const {
     state: { currentQue },
     dispatch,
-    setModal
+    setModal,
   } = useQuestion();
   const [questions, setQuestions] = useState([]);
   const [seconds, setSeconds] = useState(5);
@@ -101,7 +101,10 @@ function Quiz() {
           })}
         </div>
         <div className="flex">
-          <button className="py-2 px-4 mt-4 mr-3 bg-red text-1xl text_color rounded-lg self-start" onClick={()=>setModal(true)}>
+          <button
+            className="py-2 px-4 mt-4 mr-3 bg-red text-1xl text_color rounded-lg self-start"
+            onClick={() => setModal(true)}
+          >
             Quit
           </button>
           {questions?.length === currentQue + 1 ? (
