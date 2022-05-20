@@ -11,9 +11,9 @@ import {
 } from "firebase/firestore";
 import { async } from "@firebase/util";
 
-const getUserScore = async (user) => {
+const getUserScore = async (uid) => {
   let data;
-  const docRef = doc(userDb, user.uid);
+  const docRef = doc(userDb, uid);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     data = docSnap.data();
@@ -22,8 +22,9 @@ const getUserScore = async (user) => {
 };
 
 const AddUserScore = async (colName, score, user) => {
-  const prevData = await getUserScore(user);
-  if (prevData.uid && prevData.score < score) {
+  const prevData = await getUserScore(user?.uid);
+  console.log(user.uid)
+  // if (prevData.uid && prevData.score < score) {
     setDoc(
       doc(userDb, user.uid),
       {
@@ -34,15 +35,15 @@ const AddUserScore = async (colName, score, user) => {
       },
       { merge: true }
     );
-  }
-  if (!prevData.uid) {
-    addDoc(doc(userDb, user.uid), {
-      uid: user.uid,
-      score: score,
-      category: colName,
-      userName:user.email
-    });
-  }
+  // }
+  // if (!prevData.uid) {
+  //   addDoc(doc(userDb, user.uid), {
+  //     uid: user.uid,
+  //     score: score,
+  //     category: colName,
+  //     userName:user.email
+  //   });
+  // }
 };
 
 export { AddUserScore };

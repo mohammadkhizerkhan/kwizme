@@ -64,7 +64,6 @@ function Result() {
           ) : (
             <span className="text-green">Score:{totalScore}</span>
           )}
-          {/* <button onClick={()=>AddUserScore(totalScore,user)}>leaderboard</button> */}
         </div>
         {questions?.map((item, i) => {
           return (
