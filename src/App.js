@@ -3,12 +3,12 @@ import Logo from "./assets/Logo";
 import { Routes, Route, Link } from "react-router-dom";
 import { Login, Result, SignUp, SignOut, LeaderBoard } from "./Pages";
 import { PrivateRoute } from "./PrivateRoute";
-import { QuizCard, Quiz, AuthRoute,Navbar } from "./components";
+import { QuizCard, Quiz, AuthRoute, Navbar, Modal } from "./components";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useAuth } from "./context";
+import { useAuth, useQuestion } from "./context";
 function App() {
-  const { token } = useAuth();
+  const { modal, setModal } = useQuestion();
   return (
     <>
       <ToastContainer
@@ -24,7 +24,8 @@ function App() {
       />
       <ToastContainer />
       <div className="w-full mx-auto bg-gray-200 rounded-xl shadow border p-8 flex-col items-center">
-        <Navbar/>
+        <div className="flex flex-col fixed inset-0">{modal && <Modal />}</div>
+        <Navbar />
         <Routes>
           <Route path="/" element={<QuizCard />} />
           <Route element={<AuthRoute />}>
