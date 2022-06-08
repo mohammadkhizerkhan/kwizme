@@ -26,7 +26,7 @@ function Quiz() {
   const [answer, setAnswer] = useState("");
 
   const nextQuestionHandler = () => {
-    setSeconds(5);
+    setSeconds(30);
     if (currentQue < 5) {
       dispatch({
         type: "NEXT",
