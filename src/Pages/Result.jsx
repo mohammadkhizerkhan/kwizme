@@ -62,7 +62,8 @@ function Result() {
             <div className="m-3">
               {selectedQuestions[i].answer === "" ? (
                 <h3 className="mb-2 text-2xl">
-                  sorry you have not selected any options for <span className="text-red">{item.question}</span>
+                  sorry you have not selected any options for{" "}
+                  <span className="text-red">{item.question}</span>
                 </h3>
               ) : (
                 <>
@@ -71,12 +72,14 @@ function Result() {
                     {item.answers.map((ele) => (
                       <li
                         className={`block cursor-pointer list-none bg-selected p-2 rounded mt-1 text-2xl ${
-                          ele.isCorrect && "bg-green"
-                        } ${
+                          ele.isCorrect && "bg-[#96e072]"
+                        } 
+                        ${
                           selectedQuestions[i].answer === ele.answer &&
                           !ele.isCorrect &&
-                          "bg-red"
-                        }`}
+                          "bg-[#ff5a5f]"
+                        } 
+                        `}
                       >
                         {ele.answer}
                       </li>
