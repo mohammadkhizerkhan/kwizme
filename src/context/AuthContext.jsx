@@ -107,6 +107,7 @@ const AuthProvider = ({ children }) => {
           user,
           token,
           userDetails,
+          setUserDetails,
           changeHandler,
           signUpHandler,
           loginHandler,

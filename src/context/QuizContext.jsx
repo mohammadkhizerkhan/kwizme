@@ -1,20 +1,12 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import {
-  db,
   demonSlayerDb,
   hunterDb,
   narutoDb,
-  auth,
 } from "../firebase/config";
 import {
-  addDoc,
-  doc,
   onSnapshot,
   query,
-  where,
-  collection,
-  setDoc,
-  getDocs
 } from "firebase/firestore";
 // import { useAuth } from "./Auth-Context";
 const defaultValue = [];

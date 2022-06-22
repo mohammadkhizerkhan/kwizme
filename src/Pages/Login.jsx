@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Login() {
-  const {loginHandler,userDetails,changeHandler}=useAuth();
-  const navigate=useNavigate();
+  const { loginHandler, userDetails, changeHandler,setUserDetails } = useAuth();
+  const navigate = useNavigate();
   return (
     <div class="h-144 overflow-hidden flex items-center justify-center">
       <div class="bg-white lg:w-5/12 md:6/12 w-10/12 shadow-3xl">
@@ -38,10 +38,25 @@ function Login() {
               onChange={changeHandler}
             />
           </div>
-          <button type="submit" onClick={(e)=>loginHandler(e)} class="bg-gradient-to-b from-gray-700 to-gray-900 font-medium p-2 md:p-4 text-white uppercase w-full">
+          <button
+            type="submit"
+            onClick={(e) => loginHandler(e)}
+            class="bg-gradient-to-b from-gray-700 to-gray-900 font-medium p-2 md:p-4 text-white uppercase w-full"
+          >
             Login
           </button>
-          <button type="button" onClick={()=>navigate("/signup")} class="bg-gradient-to-b mt-4 from-gray-700 to-gray-900 font-medium p-2 md:p-4 text-white uppercase w-full">
+          <button
+            type="button"
+            onClick={(e) =>setUserDetails({email:"test@gmail.com",password:"test123"})}
+            class="bg-gradient-to-b mt-4 from-gray-700 to-gray-900 font-medium p-2 md:p-4 text-white uppercase w-full"
+          >
+            Fill with test credentials
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate("/signup")}
+            class="bg-gradient-to-b mt-4 from-gray-700 to-gray-900 font-medium p-2 md:p-4 text-white uppercase w-full"
+          >
             Create an account
           </button>
         </form>
@@ -50,4 +65,4 @@ function Login() {
   );
 }
 
-export {Login};
+export { Login };

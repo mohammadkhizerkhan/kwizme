@@ -15,7 +15,7 @@ module.exports = {
         text_color:"#0E131F",
         "grey":"#9ca3af",
         "red":"rgb(239 68 68)",
-        "green":"rgb(34 197 94)",
+        "green":"#96e072",
         "grey":"rgb(115 115 115)",
         "selected":"rgb(212 212 212)",
         "overlay":"rgba(12, 13, 13, 0.6)"
